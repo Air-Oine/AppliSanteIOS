@@ -8,12 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		844C8CDE1EF949FA005E82B3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844C8CDD1EF949FA005E82B3 /* AppDelegate.swift */; };
-		844C8CE01EF949FA005E82B3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844C8CDF1EF949FA005E82B3 /* ViewController.swift */; };
 		844C8CE31EF949FA005E82B3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 844C8CE11EF949FA005E82B3 /* Main.storyboard */; };
 		844C8CE51EF949FA005E82B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 844C8CE41EF949FA005E82B3 /* Assets.xcassets */; };
 		844C8CE81EF949FA005E82B3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 844C8CE61EF949FA005E82B3 /* LaunchScreen.storyboard */; };
 		844C8CF31EF949FA005E82B3 /* ApplicationSanteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844C8CF21EF949FA005E82B3 /* ApplicationSanteTests.swift */; };
 		844C8CFE1EF949FA005E82B3 /* ApplicationSanteUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844C8CFD1EF949FA005E82B3 /* ApplicationSanteUITests.swift */; };
+		844C8D0C1EF94F09005E82B3 /* PatientTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844C8D0B1EF94F09005E82B3 /* PatientTableViewController.swift */; };
+		844C8D0F1EF952F3005E82B3 /* CreatePatientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844C8D0D1EF952F3005E82B3 /* CreatePatientViewController.swift */; };
+		844C8D101EF952F3005E82B3 /* CreatePatientViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 844C8D0E1EF952F3005E82B3 /* CreatePatientViewController.xib */; };
+		844C8D131EF95586005E82B3 /* Personne.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844C8D121EF95586005E82B3 /* Personne.swift */; };
+		844C8D151EF967E3005E82B3 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844C8D141EF967E3005E82B3 /* DetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +40,6 @@
 /* Begin PBXFileReference section */
 		844C8CDA1EF949FA005E82B3 /* ApplicationSante.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ApplicationSante.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		844C8CDD1EF949FA005E82B3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		844C8CDF1EF949FA005E82B3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		844C8CE21EF949FA005E82B3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		844C8CE41EF949FA005E82B3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		844C8CE71EF949FA005E82B3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -47,6 +50,11 @@
 		844C8CF91EF949FA005E82B3 /* ApplicationSanteUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ApplicationSanteUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		844C8CFD1EF949FA005E82B3 /* ApplicationSanteUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationSanteUITests.swift; sourceTree = "<group>"; };
 		844C8CFF1EF949FA005E82B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		844C8D0B1EF94F09005E82B3 /* PatientTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PatientTableViewController.swift; sourceTree = "<group>"; };
+		844C8D0D1EF952F3005E82B3 /* CreatePatientViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePatientViewController.swift; sourceTree = "<group>"; };
+		844C8D0E1EF952F3005E82B3 /* CreatePatientViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreatePatientViewController.xib; sourceTree = "<group>"; };
+		844C8D121EF95586005E82B3 /* Personne.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Personne.swift; sourceTree = "<group>"; };
+		844C8D141EF967E3005E82B3 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,12 +105,16 @@
 		844C8CDC1EF949FA005E82B3 /* ApplicationSante */ = {
 			isa = PBXGroup;
 			children = (
+				844C8D111EF95573005E82B3 /* Data */,
 				844C8CDD1EF949FA005E82B3 /* AppDelegate.swift */,
-				844C8CDF1EF949FA005E82B3 /* ViewController.swift */,
+				844C8D0B1EF94F09005E82B3 /* PatientTableViewController.swift */,
 				844C8CE11EF949FA005E82B3 /* Main.storyboard */,
 				844C8CE41EF949FA005E82B3 /* Assets.xcassets */,
 				844C8CE61EF949FA005E82B3 /* LaunchScreen.storyboard */,
 				844C8CE91EF949FA005E82B3 /* Info.plist */,
+				844C8D0D1EF952F3005E82B3 /* CreatePatientViewController.swift */,
+				844C8D0E1EF952F3005E82B3 /* CreatePatientViewController.xib */,
+				844C8D141EF967E3005E82B3 /* DetailViewController.swift */,
 			);
 			path = ApplicationSante;
 			sourceTree = "<group>";
@@ -123,6 +135,14 @@
 				844C8CFF1EF949FA005E82B3 /* Info.plist */,
 			);
 			path = ApplicationSanteUITests;
+			sourceTree = "<group>";
+		};
+		844C8D111EF95573005E82B3 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				844C8D121EF95586005E82B3 /* Personne.swift */,
+			);
+			name = Data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -232,6 +252,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				844C8D101EF952F3005E82B3 /* CreatePatientViewController.xib in Resources */,
 				844C8CE81EF949FA005E82B3 /* LaunchScreen.storyboard in Resources */,
 				844C8CE51EF949FA005E82B3 /* Assets.xcassets in Resources */,
 				844C8CE31EF949FA005E82B3 /* Main.storyboard in Resources */,
@@ -259,8 +280,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				844C8CE01EF949FA005E82B3 /* ViewController.swift in Sources */,
+				844C8D0C1EF94F09005E82B3 /* PatientTableViewController.swift in Sources */,
 				844C8CDE1EF949FA005E82B3 /* AppDelegate.swift in Sources */,
+				844C8D151EF967E3005E82B3 /* DetailViewController.swift in Sources */,
+				844C8D0F1EF952F3005E82B3 /* CreatePatientViewController.swift in Sources */,
+				844C8D131EF95586005E82B3 /* Personne.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
