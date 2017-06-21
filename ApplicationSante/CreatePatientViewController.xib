@@ -14,6 +14,7 @@
                 <outlet property="firstNameText" destination="voa-2b-x47" id="0Nb-rR-Mlt"/>
                 <outlet property="genderSwitch" destination="cGL-P5-Mv9" id="PHJ-QA-ovU"/>
                 <outlet property="nameText" destination="fYo-J0-AvW" id="4lQ-cl-Yrr"/>
+                <outlet property="progressbar" destination="tuy-p5-8DO" id="Iz0-S9-OuE"/>
                 <outlet property="saveButton" destination="ThW-Ad-bfv" id="XNT-Qa-Ecv"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -24,7 +25,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="jyl-tr-pDb">
-                    <rect key="frame" x="0.0" y="20" width="320" height="162.5"/>
+                    <rect key="frame" x="0.0" y="20" width="320" height="194.5"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nouveau patient" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rxt-X2-JKb">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="26.5"/>
@@ -53,6 +54,9 @@
                                 <segment title="Mister"/>
                             </segments>
                         </segmentedControl>
+                        <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tuy-p5-8DO">
+                            <rect key="frame" x="0.0" y="192.5" width="320" height="2"/>
+                        </progressView>
                     </subviews>
                 </stackView>
                 <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ThW-Ad-bfv">

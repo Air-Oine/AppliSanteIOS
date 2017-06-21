@@ -12,9 +12,13 @@ class PatientTableViewController: UITableViewController {
 
     var patients = [Personne]()
     
+    var displayFirstNameNameSetting: Bool = true
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
@@ -25,13 +29,30 @@ class PatientTableViewController: UITableViewController {
         patients.append(chuck)
         patients.append(superman)
         patients.append(wonderwoman)
-
-        self.tableView.reloadData()
         
+        //Button for settings
+        let buttonSettings = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector
+            (showSettingsViewController))
+        
+        self.navigationItem.leftBarButtonItem = buttonSettings
+        
+        //Button for creating person
         let buttonAdd = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector
             (showCreateViewController))
         
         self.navigationItem.rightBarButtonItem = buttonAdd
+        
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        //Settings loading
+        loadSettings()
+        
+        //Refresh table view
+        self.tableView.reloadData()
     }
 
     func showCreateViewController() {
@@ -42,6 +63,24 @@ class PatientTableViewController: UITableViewController {
         self.present(controller, animated: true, completion: nil)
     }
     
+    func showSettingsViewController() {
+        let controller = SettingsViewController(nibName: "SettingsViewController", bundle: nil)
+                
+        self.present(controller, animated: true, completion: nil)
+    }
+    
+    func loadSettings(){
+        guard let displayMode = UserDefaults.standard.value(forKey: "displayListMode") as? Int else {
+            return
+        }
+        
+        if displayMode == 0 {
+            displayFirstNameNameSetting = false
+        }
+        else {
+            displayFirstNameNameSetting = true
+        }
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -63,7 +102,7 @@ class PatientTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "patientCell", for: indexPath)
 
         // Configure the cell...
-        cell.textLabel?.text = patients[indexPath.row].firstName + " " + patients[indexPath.row].name
+        cell.textLabel?.text = patients[indexPath.row].getFullName(firstNameThenName: displayFirstNameNameSetting)
 
         return cell
     }

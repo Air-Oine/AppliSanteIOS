@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16D30" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_0" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SettingsViewController" customModule="ApplicationSante" customModuleProvider="target">
+            <connections>
+                <outlet property="displayListMode" destination="HpI-b3-hCJ" id="KKr-ZR-EdX"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="7ST-T7-ZdH">
+                    <rect key="frame" x="0.0" y="100" width="320" height="58.5"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="List display mode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H5u-Wg-dQF">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="20.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="HpI-b3-hCJ" userLabel="displayMode">
+                            <rect key="frame" x="0.0" y="30.5" width="320" height="29"/>
+                            <segments>
+                                <segment title="Name First name"/>
+                                <segment title="First name Name"/>
+                            </segments>
+                        </segmentedControl>
+                    </subviews>
+                </stackView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vSN-co-sqe">
+                    <rect key="frame" x="0.0" y="538" width="320" height="30"/>
+                    <state key="normal" title="Save"/>
+                    <connections>
+                        <action selector="save:" destination="-1" eventType="touchUpInside" id="keN-CJ-pIh"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="vSN-co-sqe" secondAttribute="trailing" id="0p9-Yi-6DE"/>
+                <constraint firstAttribute="bottom" secondItem="vSN-co-sqe" secondAttribute="bottom" id="1cY-aD-OPO"/>
+                <constraint firstItem="vSN-co-sqe" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="7Ab-9v-sSo"/>
+                <constraint firstItem="7ST-T7-ZdH" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="A5q-bP-Cms"/>
+                <constraint firstAttribute="trailing" secondItem="7ST-T7-ZdH" secondAttribute="trailing" id="KYa-Sb-AnP"/>
+                <constraint firstItem="7ST-T7-ZdH" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="100" id="bTH-eH-dP6"/>
+            </constraints>
+            <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+        </view>
+    </objects>
+</document>

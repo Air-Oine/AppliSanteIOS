@@ -24,7 +24,7 @@ class Personne {
         self.gender = gender
     }
     
-    func getFullName() -> String {
+    func getFullName(firstNameThenName: Bool = true) -> String {
         var fullName: String = ""
         
         if gender == .Mister {
@@ -34,7 +34,12 @@ class Personne {
             fullName.append("Mme ")
         }
         
-        fullName.append(firstName + " " + name)
+        if firstNameThenName {
+            fullName.append(firstName + " " + name)
+        }
+        else {
+            fullName.append(name + " " + firstName)
+        }
         
         return fullName
     }

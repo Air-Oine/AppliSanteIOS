@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		841500501EFAA70400DDB15D /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8415004E1EFAA70400DDB15D /* SettingsViewController.swift */; };
+		841500511EFAA70400DDB15D /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8415004F1EFAA70400DDB15D /* SettingsViewController.xib */; };
 		844C8CDE1EF949FA005E82B3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844C8CDD1EF949FA005E82B3 /* AppDelegate.swift */; };
 		844C8CE31EF949FA005E82B3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 844C8CE11EF949FA005E82B3 /* Main.storyboard */; };
 		844C8CE51EF949FA005E82B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 844C8CE41EF949FA005E82B3 /* Assets.xcassets */; };
@@ -38,6 +40,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8415004E1EFAA70400DDB15D /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		8415004F1EFAA70400DDB15D /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
 		844C8CDA1EF949FA005E82B3 /* ApplicationSante.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ApplicationSante.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		844C8CDD1EF949FA005E82B3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		844C8CE21EF949FA005E82B3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -115,6 +119,8 @@
 				844C8D0D1EF952F3005E82B3 /* CreatePatientViewController.swift */,
 				844C8D0E1EF952F3005E82B3 /* CreatePatientViewController.xib */,
 				844C8D141EF967E3005E82B3 /* DetailViewController.swift */,
+				8415004E1EFAA70400DDB15D /* SettingsViewController.swift */,
+				8415004F1EFAA70400DDB15D /* SettingsViewController.xib */,
 			);
 			path = ApplicationSante;
 			sourceTree = "<group>";
@@ -256,6 +262,7 @@
 				844C8CE81EF949FA005E82B3 /* LaunchScreen.storyboard in Resources */,
 				844C8CE51EF949FA005E82B3 /* Assets.xcassets in Resources */,
 				844C8CE31EF949FA005E82B3 /* Main.storyboard in Resources */,
+				841500511EFAA70400DDB15D /* SettingsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,6 +292,7 @@
 				844C8D151EF967E3005E82B3 /* DetailViewController.swift in Sources */,
 				844C8D0F1EF952F3005E82B3 /* CreatePatientViewController.swift in Sources */,
 				844C8D131EF95586005E82B3 /* Personne.swift in Sources */,
+				841500501EFAA70400DDB15D /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -529,6 +537,7 @@
 				844C8D041EF949FA005E82B3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		844C8D051EF949FA005E82B3 /* Build configuration list for PBXNativeTarget "ApplicationSanteTests" */ = {
 			isa = XCConfigurationList;
@@ -537,6 +546,7 @@
 				844C8D071EF949FA005E82B3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		844C8D081EF949FA005E82B3 /* Build configuration list for PBXNativeTarget "ApplicationSanteUITests" */ = {
 			isa = XCConfigurationList;
@@ -545,6 +555,7 @@
 				844C8D0A1EF949FA005E82B3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
