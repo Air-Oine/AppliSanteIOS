@@ -15,6 +15,8 @@ class CreatePatientViewController: UIViewController {
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var genderSwitch: UISegmentedControl!
     
+    weak var delegate: CreatePatientDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -46,9 +48,14 @@ class CreatePatientViewController: UIViewController {
             nameText.backgroundColor = .red
         }
         
-        var newPerson = Personne(name: name, firstName: firstName, gender: gender)
+        //On instancie la personne que l'on a crée
+        let newPerson = Personne(name: name, firstName: firstName, gender: gender)
+     
+        //On appelle la fonction déléguée de création d'une personne
+        delegate?.createPerson(person: newPerson)
         
-        //PatientTableViewController.
+        //Close the view
+        dismiss(animated: true, completion: nil)
     }
 
     /*
@@ -61,4 +68,9 @@ class CreatePatientViewController: UIViewController {
     }
     */
 
+}
+
+protocol CreatePatientDelegate: AnyObject {
+    
+    func createPerson(person: Personne)
 }

@@ -14,9 +14,17 @@ class DetailViewController: UIViewController {
 
     var patient: Personne!
     
+    var methodDelete: (() -> ())?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        //Interface
+        let buttonDelete = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector
+            (deletePatient))
+        self.navigationItem.rightBarButtonItem = buttonDelete
+        
+        //Loading person informations
         self.title = patient.getFullName()
         
         if patient.gender == .Mister {
@@ -32,15 +40,18 @@ class DetailViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func deletePatient() {
+        
+        let alert = UIAlertController(title: "Confirmation", message: "Voulez-vous vraiment supprimer cette personne ?", preferredStyle: .alert)
+    
+        let actionOk = UIAlertAction(title: "OK", style: .destructive) { (actionOk) in
+            self.methodDelete?()
+        }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        alert.addAction(actionOk)
+        
+        self.present(alert, animated: true, completion: nil)
     }
-    */
 
 }
+

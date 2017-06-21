@@ -17,9 +17,6 @@ class PatientTableViewController: UITableViewController {
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
         let chuck = Personne(name: "Norris", firstName: "Chuck", gender: .Mister)
         let superman = Personne(name: "Man", firstName: "Super", gender: .Mister)
@@ -31,15 +28,20 @@ class PatientTableViewController: UITableViewController {
 
         self.tableView.reloadData()
         
-        let button = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector
+        let buttonAdd = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector
             (showCreateViewController))
-        self.navigationItem.rightBarButtonItem = button
+        
+        self.navigationItem.rightBarButtonItem = buttonAdd
     }
 
     func showCreateViewController() {
         let controller = CreatePatientViewController(nibName: "CreatePatientViewController", bundle: nil)
+        
+        controller.delegate = self
+        
         self.present(controller, animated: true, completion: nil)
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -74,44 +76,18 @@ class PatientTableViewController: UITableViewController {
                 return
             }
             
+            //Defining the method delete in detail view, for removing the Person of the list
+            detailController.methodDelete = {
+                self.patients.remove(at: selectedIndexPath.row)
+                
+                self.tableView.reloadData()
+                
+                self.navigationController?.popViewController(animated: true)
+            }
+            
             detailController.patient = patients[selectedIndexPath.row]
         }
     }
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
 
     /*
     // MARK: - Navigation
@@ -123,4 +99,13 @@ class PatientTableViewController: UITableViewController {
     }
     */
 
+}
+
+extension PatientTableViewController: CreatePatientDelegate {
+    
+    func createPerson(person: Personne) {
+        patients.append(person)
+        
+        self.tableView.reloadData()
+    }
 }
