@@ -17,18 +17,10 @@ class PatientTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
-        let chuck = Personne(name: "Norris", firstName: "Chuck", gender: .Mister)
-        let superman = Personne(name: "Man", firstName: "Super", gender: .Mister)
-        let wonderwoman = Personne(name: "Woman", firstName: "Wonder", gender: .Miss)
-        
-        patients.append(chuck)
-        patients.append(superman)
-        patients.append(wonderwoman)
+        loadPatients()
         
         //Button for settings
         let buttonSettings = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector
@@ -53,6 +45,42 @@ class PatientTableViewController: UITableViewController {
         
         //Refresh table view
         self.tableView.reloadData()
+    }
+    
+    func loadPatients() {
+        let chuck = Personne(name: "Norris", firstName: "Chuck", gender: .Mister)
+        let superman = Personne(name: "Man", firstName: "Super", gender: .Mister)
+        let wonderwoman = Personne(name: "Woman", firstName: "Wonder", gender: .Miss)
+        
+        patients.append(chuck)
+        patients.append(superman)
+        patients.append(wonderwoman)
+        
+        //Loading data file
+        let fileUrl = Bundle.main.url(forResource: "names", withExtension: "plist")
+        
+        guard let url = fileUrl, let array = NSArray(contentsOfFile: url.path) else {
+            return
+        }
+        
+        for dict in array {
+            if let dictionnary = dict as? [String:Any] {
+                let firstname = dictionnary["name"] as? String ?? "Error"
+                let lastname = dictionnary["lastname"] as? String ?? "Error"
+                let isFemale = dictionnary["isFemale"] as? Bool ?? true
+                
+                let gender: Personne.Gender
+                
+                if isFemale {
+                    gender = .Miss
+                }
+                else {
+                    gender = .Mister
+                }
+                
+                self.patients.append(Personne(name: lastname, firstName: firstname, gender: gender))
+            }
+        }
     }
 
     func showCreateViewController() {

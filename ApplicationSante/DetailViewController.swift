@@ -47,8 +47,10 @@ class DetailViewController: UIViewController {
         let actionOk = UIAlertAction(title: "OK", style: .destructive) { (actionOk) in
             self.methodDelete?()
         }
+        let actionCancel = UIAlertAction(title: "Cancel", style: .destructive)
 
         alert.addAction(actionOk)
+        alert.addAction(actionCancel)
         
         self.present(alert, animated: true, completion: nil)
     }
