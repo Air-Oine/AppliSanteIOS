@@ -57,6 +57,27 @@ class CreatePatientViewController: UIViewController {
         
         if personValid {
             //Instanciating the person
+            
+            //Insertion on remote server
+            var json = [String: String]()
+            json["surname"] = firstName
+            json["lastname"] = name
+            json["pictureUrl"] = "https://boygeniusreport.files.wordpress.com/2012/11/android-icon.jpg?quality=98&strip=all"
+            
+            let appDelegate = UIApplication.shared.delegate as? AppDelegate
+            var request = URLRequest(url: URL(string: appDelegate!.apiUrl)!)
+            request.httpMethod = "POST"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.httpBody = try? JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
+            
+            let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                if let data = data {
+                    print(data)
+                }
+            }
+            task.resume()
+            
+            //Local insertion
             let newPerson = Person(entity: Person.entity(), insertInto: persistentContainer.viewContext)
             newPerson.firstName = firstName
             newPerson.name = name
