@@ -12,6 +12,7 @@
 		841500531EFABBDD00DDB15D /* names.plist in Resources */ = {isa = PBXBuildFile; fileRef = 841500521EFABBDD00DDB15D /* names.plist */; };
 		843B80331EFBAB4700B3229A /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 843B80321EFBAB4700B3229A /* CoreData.framework */; };
 		843B80361EFBABA800B3229A /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 843B80341EFBABA800B3229A /* Model.xcdatamodeld */; };
+		843B80751EFC088C00B3229A /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843B80741EFC088C00B3229A /* DataModel.swift */; };
 		844C8CDE1EF949FA005E82B3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844C8CDD1EF949FA005E82B3 /* AppDelegate.swift */; };
 		844C8CE31EF949FA005E82B3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 844C8CE11EF949FA005E82B3 /* Main.storyboard */; };
 		844C8CE51EF949FA005E82B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 844C8CE41EF949FA005E82B3 /* Assets.xcassets */; };
@@ -48,6 +49,7 @@
 		841500521EFABBDD00DDB15D /* names.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = names.plist; sourceTree = "<group>"; };
 		843B80321EFBAB4700B3229A /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		843B80351EFBABA800B3229A /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		843B80741EFC088C00B3229A /* DataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		844C8CDA1EF949FA005E82B3 /* ApplicationSante.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ApplicationSante.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		844C8CDD1EF949FA005E82B3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		844C8CE21EF949FA005E82B3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 			children = (
 				844C8D121EF95586005E82B3 /* Personne.swift */,
 				843B80341EFBABA800B3229A /* Model.xcdatamodeld */,
+				843B80741EFC088C00B3229A /* DataModel.swift */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -311,6 +314,7 @@
 				844C8D151EF967E3005E82B3 /* DetailViewController.swift in Sources */,
 				843B80361EFBABA800B3229A /* Model.xcdatamodeld in Sources */,
 				844C8D0F1EF952F3005E82B3 /* CreatePatientViewController.swift in Sources */,
+				843B80751EFC088C00B3229A /* DataModel.swift in Sources */,
 				844C8D131EF95586005E82B3 /* Personne.swift in Sources */,
 				841500501EFAA70400DDB15D /* SettingsViewController.swift in Sources */,
 			);

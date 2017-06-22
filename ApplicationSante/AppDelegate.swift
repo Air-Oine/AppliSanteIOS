@@ -12,13 +12,22 @@ import CoreData
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
+    //var dataModel: DataModel
+    
+    let apiUrl: String = "http://10.1.0.100:3000/persons"
+    
     var window: UIWindow?
     
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        //dataModel = DataModel()
+        
         loadPatients()
+        
+        refreshFromServer()
+        
         return true
     }
     
@@ -34,32 +43,83 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 return
             }
             
-            for dict in array {
-                if let dictionnary = dict as? [String:Any] {
-                    //Getting person datas from file
-                    let firstname = dictionnary["name"] as? String ?? "Error"
-                    let lastname = dictionnary["lastname"] as? String ?? "Error"
-                    let isFemale = dictionnary["isFemale"] as? Bool ?? true
-                    let pictureUrl = dictionnary["pictureUrl"] as? String ?? nil
-                    
-                    //Creating core object
-                    let personData = Person(entity: Person.entity(), insertInto: persistentContainer.viewContext)
-                    personData.firstName = firstname
-                    personData.name = lastname
-                    personData.isFemale = isFemale
-                    
-                    if pictureUrl != nil {
-                        personData.pictureUrl = pictureUrl
-                    }
+            loadFromDictionnary(array: array as! [[String : Any]])
+        }
+    }
+    
+    func loadFromDictionnary(array: [[String: Any]], keyIsSurname: Bool = false) {
+        for dict in array {
+            if let dictionnary = dict as? [String:Any] {
+                //Getting person datas from file
+                let firstname: String
+                if keyIsSurname {
+                    firstname = dictionnary["surname"] as? String ?? "Error"
+                }
+                else {
+                    firstname = dictionnary["name"] as? String ?? "Error"
+                }
+                let lastname = dictionnary["lastname"] as? String ?? "Error"
+                let isFemale = dictionnary["isFemale"] as? Bool ?? true
+                let pictureUrl = dictionnary["pictureUrl"] as? String ?? nil
+                let id = dictionnary["id"] as? Int64
+                
+                //Creating core object
+                let personData = Person(entity: Person.entity(), insertInto: persistentContainer.viewContext)
+                personData.firstName = firstname
+                personData.name = lastname
+                personData.isFemale = isFemale
+                
+                if pictureUrl != nil {
+                    personData.pictureUrl = pictureUrl
+                }
+                
+                if id != nil {
+                    personData.serverId = id!
                 }
             }
-            
-            //Insert CoreData
-            if persistentContainer.commit() {
-                //We save that data are now imported
-                UserDefaults.standard.set(true, forKey: "dataImported")
-            }
         }
+        
+        //Insert CoreData
+        if persistentContainer.commit() {
+            //We save that data are now imported
+            UserDefaults.standard.set(true, forKey: "dataImported")
+        }
+    }
+    
+    func refreshFromServer() {
+        let url = URL(string: apiUrl)!
+        
+        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+            guard let data = data else {
+                return
+            }
+            
+            let dictionnary = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableContainers)
+            
+            guard let jsonDict = dictionnary as? [[String: Any]] else {
+                return
+            }
+            
+            //Deleting all datas in local database
+            let fetchRequest = NSFetchRequest<Person>(entityName: "Person")
+            do {
+                let personsInLocalDatabase = try self.persistentContainer.viewContext.fetch(fetchRequest) as [Person]
+                
+                for person in personsInLocalDatabase {
+                    self.persistentContainer.viewContext.delete(person)
+                }
+                
+                self.persistentContainer.commit()
+            }
+            catch {
+                print(error)
+            }
+
+            
+            
+            self.loadFromDictionnary(array: jsonDict, keyIsSurname: true)
+        }
+        task.resume()
     }
     
     func applicationWillResignActive(_ application: UIApplication) {
