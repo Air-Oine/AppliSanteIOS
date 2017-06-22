@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16D30" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Doctor" representedClassName="Doctor" syncable="YES" codeGenerationType="class">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="patients" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Person" inverseName="mainDoctor" inverseEntity="Person" syncable="YES"/>
+    </entity>
+    <entity name="Person" representedClassName="Person" syncable="YES" codeGenerationType="class">
+        <attribute name="firstName" attributeType="String" syncable="YES"/>
+        <attribute name="isFemale" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <attribute name="pictureUrl" optional="YES" attributeType="String" defaultValueString="https://boygeniusreport.files.wordpress.com/2012/11/android-icon.jpg?quality=98&amp;strip=all" syncable="YES"/>
+        <attribute name="serverId" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="mainDoctor" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Doctor" inverseName="patients" inverseEntity="Doctor" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Person" positionX="-470" positionY="-117" width="128" height="133"/>
+        <element name="Doctor" positionX="-54" positionY="-9" width="128" height="75"/>
+    </elements>
+</model>

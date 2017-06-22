@@ -12,5 +12,15 @@
 		<key>isFemale</key>
 		<false/>
 	</dict>
+	<dict>
+		<key>name</key>
+		<string>Erwan</string>
+		<key>lastname</key>
+		<string>Masson</string>
+		<key>pictureUrl</key>
+		<string>https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAVQAAAAJDViZTlhMmM2LTY0MTYtNDYzMy05MTJjLTAwNDZhZDU3YTRjNA.jpg</string>
+		<key>isFemale</key>
+		<false/>
+	</dict>
 </array>
 </plist>

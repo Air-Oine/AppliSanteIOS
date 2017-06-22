@@ -10,14 +10,14 @@ import UIKit
 
 class SettingsViewController: UIViewController {
 
+    let displayListModeKey = "displayListMode"
+    
     @IBOutlet weak var displayListMode: UISegmentedControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         loadDisplayListMode()
-
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
@@ -26,15 +26,18 @@ class SettingsViewController: UIViewController {
     }
     
     func loadDisplayListMode() {
-        guard let displayMode = UserDefaults.standard.value(forKey: "displayListMode") as? Int else {
+        guard let displayMode = UserDefaults.standard.value(forKey: displayListModeKey) as? Int else {
             return
         }
         
         displayListMode.selectedSegmentIndex = displayMode
     }
     
+    //OnClick on save button
     @IBAction func save(_ sender: UIButton) {
-        UserDefaults.standard.set(displayListMode.selectedSegmentIndex, forKey: "displayListMode")
+        
+        //Save settings in user defaults
+        UserDefaults.standard.set(displayListMode.selectedSegmentIndex, forKey: displayListModeKey)
         
         dismiss(animated: true, completion: nil)
     }

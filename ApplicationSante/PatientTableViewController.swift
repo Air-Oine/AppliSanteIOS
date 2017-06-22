@@ -7,12 +7,13 @@
 //
 
 import UIKit
+import CoreData
 
 class PatientTableViewController: UITableViewController {
-
-    var patients = [Personne]()
     
     var displayFirstNameNameSetting: Bool = true
+    
+    var fetchedResultController: NSFetchedResultsController<Person>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,7 +21,19 @@ class PatientTableViewController: UITableViewController {
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
-        loadPatients()
+        //Settings loading
+        loadSettings()
+        
+        //Preparing the query for getting persons
+        let fetchRequest = NSFetchRequest<Person>(entityName: "Person")
+        let sort = NSSortDescriptor(key: "name", ascending: true)
+        fetchRequest.sortDescriptors = [sort]
+        
+        //Prepare fetch for reload data
+        fetchedResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: "Person")
+        
+        fetchedResultController.delegate = self
+        try! fetchedResultController.performFetch()
         
         //Button for settings
         let buttonSettings = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector
@@ -33,8 +46,6 @@ class PatientTableViewController: UITableViewController {
             (showCreateViewController))
         
         self.navigationItem.rightBarButtonItem = buttonAdd
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -42,47 +53,20 @@ class PatientTableViewController: UITableViewController {
         
         //Settings loading
         loadSettings()
-        
-        //Refresh table view
-        self.tableView.reloadData()
     }
     
-    func loadPatients() {
-        let chuck = Personne(name: "Norris", firstName: "Chuck", gender: .Mister)
-        let superman = Personne(name: "Man", firstName: "Super", gender: .Mister)
-        let wonderwoman = Personne(name: "Woman", firstName: "Wonder", gender: .Miss)
-        
-        patients.append(chuck)
-        patients.append(superman)
-        patients.append(wonderwoman)
-        
-        //Loading data file
-        let fileUrl = Bundle.main.url(forResource: "names", withExtension: "plist")
-        
-        guard let url = fileUrl, let array = NSArray(contentsOfFile: url.path) else {
-            return
-        }
-        
-        for dict in array {
-            if let dictionnary = dict as? [String:Any] {
-                let firstname = dictionnary["name"] as? String ?? "Error"
-                let lastname = dictionnary["lastname"] as? String ?? "Error"
-                let isFemale = dictionnary["isFemale"] as? Bool ?? true
-                
-                let gender: Personne.Gender
-                
-                if isFemale {
-                    gender = .Miss
-                }
-                else {
-                    gender = .Mister
-                }
-                
-                self.patients.append(Personne(name: lastname, firstName: firstname, gender: gender))
-            }
-        }
+    func loadPatientsStatic() {
+        //Static data
+        /*let chuck = Personne(name: "Norris", firstName: "Chuck", gender: .Mister)
+         let superman = Personne(name: "Man", firstName: "Super", gender: .Mister)
+         let wonderwoman = Personne(name: "Woman", firstName: "Wonder", gender: .Miss)
+         
+         patients.append(chuck)
+         patients.append(superman)
+         patients.append(wonderwoman)*/
     }
 
+    
     func showCreateViewController() {
         let controller = CreatePatientViewController(nibName: "CreatePatientViewController", bundle: nil)
         
@@ -93,7 +77,7 @@ class PatientTableViewController: UITableViewController {
     
     func showSettingsViewController() {
         let controller = SettingsViewController(nibName: "SettingsViewController", bundle: nil)
-                
+        
         self.present(controller, animated: true, completion: nil)
     }
     
@@ -109,29 +93,29 @@ class PatientTableViewController: UITableViewController {
             displayFirstNameNameSetting = true
         }
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
+        return fetchedResultController.sections?.count ?? 0
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return patients.count
+        return fetchedResultController.sections?[section].numberOfObjects ?? 0
     }
-
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "patientCell", for: indexPath)
-
+        
         // Configure the cell...
-        cell.textLabel?.text = patients[indexPath.row].getFullName(firstNameThenName: displayFirstNameNameSetting)
-
+        cell.textLabel?.text = fetchedResultController.object(at: indexPath).getFullName(firstNameThenName: displayFirstNameNameSetting)
+        
         return cell
     }
     
@@ -145,34 +129,30 @@ class PatientTableViewController: UITableViewController {
             
             //Defining the method delete in detail view, for removing the Person of the list
             detailController.methodDelete = {
-                self.patients.remove(at: selectedIndexPath.row)
-                
-                self.tableView.reloadData()
+                let patient = self.fetchedResultController.object(at: selectedIndexPath)
+                self.persistentContainer.viewContext.delete(patient)
+                self.persistentContainer.commit()
                 
                 self.navigationController?.popViewController(animated: true)
             }
             
-            detailController.patient = patients[selectedIndexPath.row]
+            detailController.patient = fetchedResultController.object(at: selectedIndexPath)
         }
     }
+    
+}
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+extension PatientTableViewController: NSFetchedResultsControllerDelegate {
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        self.tableView.reloadData()
     }
-    */
-
 }
 
 extension PatientTableViewController: CreatePatientDelegate {
-    
-    func createPerson(person: Personne) {
-        patients.append(person)
-        
-        self.tableView.reloadData()
+ 
+    func createPerson(person: Person) {
+        //Adding person to database
+        persistentContainer.commit()
     }
 }

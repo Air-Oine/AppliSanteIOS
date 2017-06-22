@@ -12,7 +12,7 @@ class DetailViewController: UIViewController {
 
     @IBOutlet weak var avatar: UIImageView!
 
-    var patient: Personne!
+    var patient: Person!
     
     var methodDelete: (() -> ())?
     
@@ -27,12 +27,29 @@ class DetailViewController: UIViewController {
         //Loading person informations
         self.title = patient.getFullName()
         
-        if patient.gender == .Mister {
-            avatar.image = #imageLiteral(resourceName: "Android")
-        }
-        else {
+        //Default image depending on gender
+        /*if patient.isFemale {
             avatar.image = #imageLiteral(resourceName: "Android-female")
         }
+        else {
+            avatar.image = #imageLiteral(resourceName: "Android")
+        }*/
+        
+        guard let pictureUrl = self.patient.pictureUrl else {
+            return
+        }
+        
+        //Download image for avatar
+        var urlRequest = URLRequest(url: URL(string: pictureUrl)!)
+        urlRequest.httpMethod = "GET"
+        URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
+            if let data = data, let image = UIImage(data: data) {
+                self.avatar.image = image
+            }
+            if error != nil {
+                print(error)
+            }
+        }.resume()
     }
 
     override func didReceiveMemoryWarning() {
@@ -42,6 +59,7 @@ class DetailViewController: UIViewController {
     
     func deletePatient() {
         
+        //Create confirmation pop-in
         let alert = UIAlertController(title: "Confirmation", message: "Voulez-vous vraiment supprimer cette personne ?", preferredStyle: .alert)
     
         let actionOk = UIAlertAction(title: "OK", style: .destructive) { (actionOk) in

@@ -8,6 +8,29 @@
 
 import Foundation
 
+//Class unused with database persistence
+extension Person {
+    func getFullName(firstNameThenName: Bool = true) -> String {
+        var fullName: String = ""
+        
+        if isFemale {
+            fullName.append("Mme ")
+        }
+        else {
+            fullName.append("Mr ")
+        }
+        
+        if firstNameThenName {
+            fullName.append(firstName! + " " + name!)
+        }
+        else {
+            fullName.append(name! + " " + firstName!)
+        }
+        
+        return fullName
+    }
+}
+
 class Personne {
     enum Gender {
         case Miss
@@ -24,23 +47,5 @@ class Personne {
         self.gender = gender
     }
     
-    func getFullName(firstNameThenName: Bool = true) -> String {
-        var fullName: String = ""
-        
-        if gender == .Mister {
-            fullName.append("Mr ")
-        }
-        else {
-            fullName.append("Mme ")
-        }
-        
-        if firstNameThenName {
-            fullName.append(firstName + " " + name)
-        }
-        else {
-            fullName.append(name + " " + firstName)
-        }
-        
-        return fullName
-    }
+    
 }

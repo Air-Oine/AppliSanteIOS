@@ -35,59 +35,58 @@ class CreatePatientViewController: UIViewController {
         let firstName = firstNameText.text ?? ""
         let name = nameText.text ?? ""
         let genderValue = genderSwitch.selectedSegmentIndex
-        var gender: Personne.Gender
+        var isFemale: Bool
         if genderValue == 0 {
-            gender = .Miss
+            isFemale = true
         }
         else {
-            gender = .Mister
+            isFemale = false
         }
+        
+        var personValid = true
         
         //Coloring background for show error if not filled
         if firstName == "" {
             firstNameText.backgroundColor = .red
+            personValid = false
         }
         if name == "" {
             nameText.backgroundColor = .red
+            personValid = false
         }
         
-        //On instancie la personne que l'on a crée
-        let newPerson = Personne(name: name, firstName: firstName, gender: gender)
-        
-        //On appelle la fonction déléguée de création d'une personne
-        delegate?.createPerson(person: newPerson)
-        
-        DispatchQueue.global(qos: .utility).async {
-            for _ in 0..<100 {
-                Thread.sleep(forTimeInterval: 0.02)
+        if personValid {
+            //Instanciating the person
+            let newPerson = Person(entity: Person.entity(), insertInto: persistentContainer.viewContext)
+            newPerson.firstName = firstName
+            newPerson.name = name
+            newPerson.isFemale = isFemale
+            
+            //Call the delegate for insert the person in database
+            delegate?.createPerson(person: newPerson)
+            
+            //Simulating creation task, with a progress bar
+            DispatchQueue.global(qos: .userInitiated).async {
+                for _ in 0..<100 {
+                    //Simulating task
+                    Thread.sleep(forTimeInterval: 0.02)
+                    
+                    //Show the progress
+                    DispatchQueue.main.async {
+                        self.progressbar.progress += 0.01
+                    }
+                }
                 
                 DispatchQueue.main.async {
-                    self.progressbar.progress += 0.01
+                    //Close the view
+                    self.dismiss(animated: true, completion: nil)
                 }
             }
-            
-            DispatchQueue.main.async {
-                //Close the view
-                self.dismiss(animated: true, completion: nil)
-            }
         }
-        
-        
     }
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
 }
 
 protocol CreatePatientDelegate: AnyObject {
     
-    func createPerson(person: Personne)
+    func createPerson(person: Person)
 }

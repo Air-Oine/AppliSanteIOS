@@ -10,6 +10,8 @@
 		841500501EFAA70400DDB15D /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8415004E1EFAA70400DDB15D /* SettingsViewController.swift */; };
 		841500511EFAA70400DDB15D /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8415004F1EFAA70400DDB15D /* SettingsViewController.xib */; };
 		841500531EFABBDD00DDB15D /* names.plist in Resources */ = {isa = PBXBuildFile; fileRef = 841500521EFABBDD00DDB15D /* names.plist */; };
+		843B80331EFBAB4700B3229A /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 843B80321EFBAB4700B3229A /* CoreData.framework */; };
+		843B80361EFBABA800B3229A /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 843B80341EFBABA800B3229A /* Model.xcdatamodeld */; };
 		844C8CDE1EF949FA005E82B3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844C8CDD1EF949FA005E82B3 /* AppDelegate.swift */; };
 		844C8CE31EF949FA005E82B3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 844C8CE11EF949FA005E82B3 /* Main.storyboard */; };
 		844C8CE51EF949FA005E82B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 844C8CE41EF949FA005E82B3 /* Assets.xcassets */; };
@@ -44,6 +46,8 @@
 		8415004E1EFAA70400DDB15D /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		8415004F1EFAA70400DDB15D /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
 		841500521EFABBDD00DDB15D /* names.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = names.plist; sourceTree = "<group>"; };
+		843B80321EFBAB4700B3229A /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		843B80351EFBABA800B3229A /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		844C8CDA1EF949FA005E82B3 /* ApplicationSante.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ApplicationSante.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		844C8CDD1EF949FA005E82B3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		844C8CE21EF949FA005E82B3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -68,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				843B80331EFBAB4700B3229A /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -88,6 +93,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		843B80311EFBAB4700B3229A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				843B80321EFBAB4700B3229A /* CoreData.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		844C8CD11EF949FA005E82B3 = {
 			isa = PBXGroup;
 			children = (
@@ -95,6 +108,7 @@
 				844C8CF11EF949FA005E82B3 /* ApplicationSanteTests */,
 				844C8CFC1EF949FA005E82B3 /* ApplicationSanteUITests */,
 				844C8CDB1EF949FA005E82B3 /* Products */,
+				843B80311EFBAB4700B3229A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -150,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				844C8D121EF95586005E82B3 /* Personne.swift */,
+				843B80341EFBABA800B3229A /* Model.xcdatamodeld */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -294,6 +309,7 @@
 				844C8D0C1EF94F09005E82B3 /* PatientTableViewController.swift in Sources */,
 				844C8CDE1EF949FA005E82B3 /* AppDelegate.swift in Sources */,
 				844C8D151EF967E3005E82B3 /* DetailViewController.swift in Sources */,
+				843B80361EFBABA800B3229A /* Model.xcdatamodeld in Sources */,
 				844C8D0F1EF952F3005E82B3 /* CreatePatientViewController.swift in Sources */,
 				844C8D131EF95586005E82B3 /* Personne.swift in Sources */,
 				841500501EFAA70400DDB15D /* SettingsViewController.swift in Sources */,
@@ -562,6 +578,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		843B80341EFBABA800B3229A /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				843B80351EFBABA800B3229A /* Model.xcdatamodel */,
+			);
+			currentVersion = 843B80351EFBABA800B3229A /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 844C8CD21EF949FA005E82B3 /* Project object */;
 }
