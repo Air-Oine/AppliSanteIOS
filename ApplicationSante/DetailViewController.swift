@@ -57,9 +57,9 @@ class DetailViewController: UIViewController {
     func deletePatient() {
         
         //Create confirmation pop-in
-        let alert = UIAlertController(title: "Confirmation", message: "Voulez-vous vraiment supprimer cette personne ?", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Confirmation", message: "Do you really want to delete this person ?", preferredStyle: .alert)
         
-        let actionOk = UIAlertAction(title: "OK", style: .destructive) { (actionOk) in
+        let actionOk = UIAlertAction(title: "Yes", style: .destructive) { (actionOk) in
             self.methodDelete?()
         }
         let actionCancel = UIAlertAction(title: "Cancel", style: .destructive)

@@ -113,7 +113,7 @@ class PatientTableViewController: UITableViewController {
         
         return cell
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         
@@ -124,9 +124,39 @@ class PatientTableViewController: UITableViewController {
             
             //Defining the method delete in detail view, for removing the Person of the list
             detailController.methodDelete = {
+                
                 let patient = self.fetchedResultController.object(at: selectedIndexPath)
-                self.persistentContainer.viewContext.delete(patient)
-                self.persistentContainer.commit()
+
+                //Local delete
+                /*self.persistentContainer.viewContext.delete(patient)
+                self.persistentContainer.commit()*/
+                
+                //Remote delete
+                let appDelegate = UIApplication.shared.delegate as? AppDelegate
+                
+                let url = appDelegate!.apiUrl.appending("/").appending(String(patient.serverId))
+
+                var request = URLRequest(url: URL(string: url)!)
+                request.httpMethod = "DELETE"
+                
+                //Delete person on server
+                let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+
+                    //If there is an error, we assume that the person is already deleted
+                    if let errorMessage = error {
+                        print(errorMessage)
+                        
+                        //Create warning pop-in
+                        let alert = UIAlertController(title: "Warning", message: "The operation failed", preferredStyle: .alert)
+                        
+                        let actionOk = UIAlertAction(title: "OK", style: .destructive)
+                        
+                        alert.addAction(actionOk)
+                        
+                        self.present(alert, animated: true, completion: nil)
+                    }
+                }
+                task.resume()
                 
                 self.navigationController?.popViewController(animated: true)
             }
