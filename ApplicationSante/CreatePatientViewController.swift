@@ -7,13 +7,14 @@
 //
 
 import UIKit
+import CoreData
 
 class CreatePatientViewController: UIViewController {
     
     @IBOutlet weak var firstNameText: UITextField!
     @IBOutlet weak var nameText: UITextField!
     @IBOutlet weak var saveButton: UIButton!
-    @IBOutlet weak var genderSwitch: UISegmentedControl!
+    @IBOutlet weak var genderSegment: UISegmentedControl!
     
     @IBOutlet weak var progressbar: UIProgressView!
     
@@ -22,7 +23,7 @@ class CreatePatientViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
+        self.progressbar.isHidden = true
     }
     
     override func didReceiveMemoryWarning() {
@@ -32,9 +33,11 @@ class CreatePatientViewController: UIViewController {
     
     //We save the new person
     @IBAction func onTapSave(_ sender: UIButton) {
+        
+        //Get form values
         let firstName = firstNameText.text ?? ""
         let name = nameText.text ?? ""
-        let genderValue = genderSwitch.selectedSegmentIndex
+        let genderValue = genderSegment.selectedSegmentIndex
         var isFemale: Bool
         if genderValue == 0 {
             isFemale = true
@@ -56,37 +59,14 @@ class CreatePatientViewController: UIViewController {
         }
         
         if personValid {
-            //Instanciating the person
             
-            //Insertion on remote server
-            var json = [String: String]()
-            json["surname"] = firstName
-            json["lastname"] = name
-            json["pictureUrl"] = "https://boygeniusreport.files.wordpress.com/2012/11/android-icon.jpg?quality=98&strip=all"
+            insertOnRemoteServer(firstName: firstName, name: name)
             
-            let appDelegate = UIApplication.shared.delegate as? AppDelegate
-            var request = URLRequest(url: URL(string: appDelegate!.apiUrl)!)
-            request.httpMethod = "POST"
-            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.httpBody = try? JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
-            
-            let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-                if let data = data {
-                    print(data)
-                }
-            }
-            task.resume()
-            
-            //Local insertion
-            let newPerson = Person(entity: Person.entity(), insertInto: persistentContainer.viewContext)
-            newPerson.firstName = firstName
-            newPerson.name = name
-            newPerson.isFemale = isFemale
-            
-            //Call the delegate for insert the person in database
-            delegate?.createPerson(person: newPerson)
+            insertOnLocalDatabase(firstName: firstName, name: name, isFemale: isFemale, persistentContainer: persistentContainer, delegate: delegate!)
             
             //Simulating creation task, with a progress bar
+            self.progressbar.isHidden = false
+            
             DispatchQueue.global(qos: .userInitiated).async {
                 for _ in 0..<100 {
                     //Simulating task
@@ -105,6 +85,40 @@ class CreatePatientViewController: UIViewController {
             }
         }
     }
+}
+
+func insertOnRemoteServer(firstName: String, name: String) {
+
+    var json = [String: String]()
+    json["surname"] = firstName
+    json["lastname"] = name
+    json["pictureUrl"] = "https://boygeniusreport.files.wordpress.com/2012/11/android-icon.jpg?quality=98&strip=all"
+    
+    let appDelegate = UIApplication.shared.delegate as? AppDelegate
+    
+    var request = URLRequest(url: URL(string: appDelegate!.apiUrl)!)
+    request.httpMethod = "POST"
+    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+    request.httpBody = try? JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
+    
+    //Post person on server
+    let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+        if let errorMessage = error {
+            print(errorMessage)
+        }
+    }
+    task.resume()
+}
+
+func insertOnLocalDatabase(firstName: String, name: String, isFemale: Bool, persistentContainer: NSPersistentContainer, delegate: CreatePatientDelegate) {
+    
+    let newPerson = Person(entity: Person.entity(), insertInto: persistentContainer.viewContext)
+    newPerson.firstName = firstName
+    newPerson.name = name
+    newPerson.isFemale = isFemale
+    
+    //Call the delegate for insert the person in database
+    delegate.createPerson(person: newPerson)
 }
 
 protocol CreatePatientDelegate: AnyObject {

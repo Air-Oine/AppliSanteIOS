@@ -8,7 +8,6 @@
 
 import Foundation
 
-//Class unused with database persistence
 extension Person {
     func getFullName(firstNameThenName: Bool = true) -> String {
         var fullName: String = ""
@@ -31,6 +30,7 @@ extension Person {
     }
 }
 
+//Class unused with database persistence
 class Personne {
     enum Gender {
         case Miss

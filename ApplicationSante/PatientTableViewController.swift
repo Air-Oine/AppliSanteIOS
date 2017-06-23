@@ -18,16 +18,13 @@ class PatientTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
         //Settings loading
         loadSettings()
         
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         //Preparing the query for getting persons
-        let fetchRequest = NSFetchRequest<Person>(entityName: "Person")
-        let sort = NSSortDescriptor(key: "name", ascending: true)
-        fetchRequest.sortDescriptors = [sort]
+        let fetchRequest = appDelegate.dataModel.getPersonsFetchRequest()
         
         //Prepare fetch for reload data
         fetchedResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: "Person")
@@ -65,7 +62,6 @@ class PatientTableViewController: UITableViewController {
          patients.append(superman)
          patients.append(wonderwoman)*/
     }
-
     
     func showCreateViewController() {
         let controller = CreatePatientViewController(nibName: "CreatePatientViewController", bundle: nil)
@@ -109,7 +105,6 @@ class PatientTableViewController: UITableViewController {
         return fetchedResultController.sections?[section].numberOfObjects ?? 0
     }
     
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "patientCell", for: indexPath)
         
@@ -139,7 +134,6 @@ class PatientTableViewController: UITableViewController {
             detailController.patient = fetchedResultController.object(at: selectedIndexPath)
         }
     }
-    
 }
 
 extension PatientTableViewController: NSFetchedResultsControllerDelegate {
@@ -151,8 +145,8 @@ extension PatientTableViewController: NSFetchedResultsControllerDelegate {
 
 extension PatientTableViewController: CreatePatientDelegate {
  
+    //Adding person to database
     func createPerson(person: Person) {
-        //Adding person to database
         persistentContainer.commit()
     }
 }

@@ -20,20 +20,11 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         
         //Interface
-        let buttonDelete = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector
-            (deletePatient))
+        let buttonDelete = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deletePatient))
         self.navigationItem.rightBarButtonItem = buttonDelete
         
         //Loading person informations
         self.title = patient.getFullName()
-        
-        //Default image depending on gender
-        /*if patient.isFemale {
-         avatar.image = #imageLiteral(resourceName: "Android-female")
-         }
-         else {
-         avatar.image = #imageLiteral(resourceName: "Android")
-         }*/
         
         guard let pictureUrl = self.patient.pictureUrl else {
             return
@@ -45,14 +36,15 @@ class DetailViewController: UIViewController {
         
         //Launching download on another thread
         URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
+            
             if let data = data, let image = UIImage(data: data) {
                 DispatchQueue.main.async {
                     self.avatar.image = image
                 }
             }
             
-            if error != nil {
-                print(error)
+            if let errorMessage = error {
+                print(errorMessage)
             }
         }.resume()
     }
